@@ -1,2 +1,70 @@
 # key-value-store
-Key Value Store in Go
+Yet another Key-Value store
+
+# The API
+Get
+```go
+    kvStore.Get(key)
+```
+
+Insert
+```go
+    kvStore.Insert(key, value)
+```
+
+Delete
+```go
+    kvStore.Delete(key)
+```
+
+## My Learnings
+You cannot return generic types in Go.
+Either you have to have weird syntax where you take in a blank argument and return it OR you have to have a zero value and return that.
+
+
+```go
+// Return a rigid type [Does not make sense]
+func Get[Key interfaces.Key](key Key) string {
+    fmt.Println("Getting the Value for:", key)
+    return "Not Yet Implemented"
+}
+```
+
+```go
+// Take in a blank never-used value [Does not make sense]
+func Get[Key interfaces.Key, Value interfaces.Value](key Key, defaultValue Value) Value {
+    fmt.Println("Getting the Value for:", key)
+    return defaultValue
+}
+```
+
+
+```go
+// Return any [Does not make sense]
+type Value any
+
+func Get(key interfaces.Key) any {
+    fmt.Println("Getting the Value for:", key)
+    return "Not Yet Implemented"
+}
+
+```
+
+What I did:
+```go
+func Get(key interfaces.Key) interface{} {
+    fmt.Println("Getting the Value for:", key)
+    return "Not Yet Implemented"
+}
+
+```
+
+## Future Scope
+- Use any Map as the KV store. Adding/Removing from the global KV store.
+```go
+    m := map[key]value
+    mConverted := library.convert(&m)
+
+    err := globalKV.Append(mConverted)
+    print(err)
+```
