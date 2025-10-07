@@ -68,3 +68,16 @@ func Get(key interfaces.Key) interface{} {
     err := globalKV.Append(mConverted)
     print(err)
 ```
+
+- We can just hash things twice
+```go
+If I have to hash: "Hello": "World";
+
+hash(key) -> hash("Hello") = 123
+hash(value) -> hash("World") = 456
+
+globalDict {
+    123: ["Hello", 456]
+    456: ["World", library.END]
+}
+```

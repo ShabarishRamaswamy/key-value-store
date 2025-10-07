@@ -16,7 +16,7 @@ func GetNewKVStore() *Store {
 
 func (s Store) Insert(key string, value interface{}) interface{} {
 	fmt.Println("Stored: ", key, s, s[key])
-	return key
+	return value
 }
 
 func Get[Key interfaces.Key, Value interfaces.Value](key Key) interface{} {
