@@ -1,7 +1,4 @@
 package interfaces
 
-type Key byte
-
-type Value interface {
-	string | bool | int64 | float64
-}
+type Key string
+type Value interface{}
