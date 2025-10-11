@@ -1,5 +1,10 @@
 # key-value-store
-Yet another Key-Value store
+Yet another Key-Value store [With a twist though].
+
+Have a simple app? Don't even need the KVS server running.
+Just pipe the values in a local file!
+
+Better even, use an S3 bucket as your KVS.
 
 # The API
 Get
