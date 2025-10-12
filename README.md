@@ -6,7 +6,13 @@ Just pipe the values in a local file!
 
 Better even, use an S3 bucket as your KVS.
 
-# The API
+# New Architecture
+Now the KVS has increased it's scope. I am making a networked database over the simple hashmap.
+
+### Architectural Diagram:
+<img src="./dev-docs/Screenshot 2025-10-11 at 5.21.30 PM.png">
+
+# The Driver API
 Get
 ```go
     kvStore.Get(key)
