@@ -11,7 +11,6 @@ import (
 var PORT string = ":8529"
 
 func main() {
-
 	router := router.GetNewRouter()
 
 	fmt.Println("Listening to PORT ", PORT)
