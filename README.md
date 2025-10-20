@@ -12,6 +12,17 @@ Now the KVS has increased it's scope. I am making a networked database over the 
 ### Architectural Diagram:
 <img src="./dev-docs/Screenshot 2025-10-11 at 5.21.30 PM.png">
 
+# Current Implementation
+Insert:
+<img src="./dev-docs/Screenshot 2025-10-20 at 3.13.57 PM.png">
+
+Avg Latency: 2ms to 4ms [Local]
+
+Get
+<img src="./dev-docs/Screenshot 2025-10-20 at 3.14.03 PM.png">
+
+Avg Latency: 2ms [Local]
+
 # The Driver API
 Get
 ```go

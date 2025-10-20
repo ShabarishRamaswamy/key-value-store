@@ -40,9 +40,13 @@ func GetNewRouter(ctx context.Context) *http.ServeMux {
 			var kvPair models.KeyValuePair
 
 			json.NewDecoder(r.Body).Decode(&kvPair)
-			getHandler.Get(kvPair)
-
+			storedKVPair, err := getHandler.Get(ctx, kvPair)
+			if err != nil && err.Error() == models.ErrNoGlovalKVStore {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
 			w.WriteHeader(http.StatusOK)
+			json.NewEncoder(w).Encode(storedKVPair)
 		} else {
 			w.WriteHeader(http.StatusForbidden)
 			w.Write([]byte("Not Allowed"))
