@@ -1,6 +1,7 @@
 package router
 
 import (
+	"context"
 	"encoding/json"
 	"net/http"
 
@@ -10,7 +11,7 @@ import (
 	"github.com/shabarishramaswamy/key-value-store/src/models"
 )
 
-func GetNewRouter() *http.ServeMux {
+func GetNewRouter(ctx context.Context) *http.ServeMux {
 	router := http.NewServeMux()
 
 	router.HandleFunc("/insert", func(w http.ResponseWriter, r *http.Request) {
@@ -18,9 +19,15 @@ func GetNewRouter() *http.ServeMux {
 			var kvPair models.KeyValuePair
 
 			json.NewDecoder(r.Body).Decode(&kvPair)
-			insertHandler.Insert(kvPair)
+			storedKVPair, err := insertHandler.Insert(ctx, kvPair)
+			if err != nil && err.Error() == models.ErrNoGlovalKVStore {
+				w.WriteHeader(http.StatusInternalServerError)
+				return
+			}
 
 			w.WriteHeader(http.StatusCreated)
+			w.Header().Set("Content-Type", "application/json")
+			json.NewEncoder(w).Encode(storedKVPair)
 		} else {
 			w.WriteHeader(http.StatusForbidden)
 			w.Write([]byte("Not Allowed"))
