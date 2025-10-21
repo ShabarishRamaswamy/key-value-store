@@ -13,15 +13,19 @@ Now the KVS has increased it's scope. I am making a networked database over the 
 <img src="./dev-docs/Screenshot 2025-10-11 at 5.21.30 PM.png">
 
 # Current Implementation
-Insert:
+Insert: <br/>
+Avg Latency: 2ms to 4ms [Local]
 <img src="./dev-docs/Screenshot 2025-10-20 at 3.13.57 PM.png">
 
-Avg Latency: 2ms to 4ms [Local]
-
-Get
+Get: <br/>
+Avg Latency: 2ms [Local]
 <img src="./dev-docs/Screenshot 2025-10-20 at 3.14.03 PM.png">
 
-Avg Latency: 2ms [Local]
+
+Delete: <br/>
+Avg Latency: 1ms [Local]
+
+<img src="./dev-docs/Screenshot 2025-10-20 at 10.26.31 PM.png">
 
 # The Driver API
 Get
