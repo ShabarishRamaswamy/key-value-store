@@ -2,6 +2,7 @@ package router
 
 import (
 	"context"
+	"database/sql"
 	"encoding/json"
 	"net/http"
 
@@ -11,7 +12,7 @@ import (
 	"github.com/shabarishramaswamy/key-value-store/src/models"
 )
 
-func GetNewRouter(ctx context.Context) *http.ServeMux {
+func GetNewRouter(ctx context.Context, db *sql.DB) *http.ServeMux {
 	router := http.NewServeMux()
 
 	router.HandleFunc("/insert", func(w http.ResponseWriter, r *http.Request) {
@@ -19,7 +20,7 @@ func GetNewRouter(ctx context.Context) *http.ServeMux {
 			var kvPair models.KeyValuePair
 
 			json.NewDecoder(r.Body).Decode(&kvPair)
-			storedKVPair, err := insertHandler.Insert(ctx, kvPair)
+			storedKVPair, err := insertHandler.Insert(ctx, db, kvPair)
 			if err != nil && err.Error() == models.ErrNoGlovalKVStore {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
