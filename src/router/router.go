@@ -42,9 +42,14 @@ func GetNewRouter(ctx context.Context, db *sql.DB) *http.ServeMux {
 
 			json.NewDecoder(r.Body).Decode(&kvPair)
 			storedKVPair, err := getHandler.Get(ctx, kvPair)
-			if err != nil && err.Error() == models.ErrNoGlovalKVStore {
-				w.WriteHeader(http.StatusInternalServerError)
-				return
+			if err != nil {
+				if err.Error() == models.ErrNoGlovalKVStore {
+					w.WriteHeader(http.StatusInternalServerError)
+					return
+				} else if err.Error() == models.ErrNoValueInKVStore {
+					w.WriteHeader(http.StatusNotFound)
+					return
+				}
 			}
 			w.WriteHeader(http.StatusOK)
 			json.NewEncoder(w).Encode(storedKVPair)
