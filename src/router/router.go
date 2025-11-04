@@ -65,7 +65,7 @@ func GetNewRouter(ctx context.Context, db *sql.DB) *http.ServeMux {
 			var kvPair models.KeyValuePair
 
 			json.NewDecoder(r.Body).Decode(&kvPair)
-			storedKVPair, err := deleteHandler.Delete(ctx, kvPair)
+			storedKVPair, err := deleteHandler.Delete(ctx, db, kvPair)
 			if err != nil && err.Error() == models.ErrNoGlovalKVStore {
 				w.WriteHeader(http.StatusInternalServerError)
 				return
